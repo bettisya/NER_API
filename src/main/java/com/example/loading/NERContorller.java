@@ -6,11 +6,18 @@ import banner.util.RankedList;
 import dnorm.core.SynonymTrainer;
 import dnorm.util.AbbreviationResolver;
 import ncbi.PubtatorReader.Abstract;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import edu.stanford.nlp.util.Triple;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,9 +35,32 @@ public class NERContorller {
     static List<DNormResult> results_Disease;
     static List<GeneralResult> results_General;
 
+    @Autowired
+    @Qualifier("mysqlJdbcTemplate")
+    private JdbcTemplate mysqlTemplate;
+
     @CrossOrigin
     @RequestMapping(value = "submit", method = RequestMethod.POST)
-    public Final_Results submit(@RequestBody RawText rawtext) throws IOException {
+    public Final_Results submit(@RequestBody RawText rawtext, HttpServletRequest request) throws IOException {
+
+        int id = 1;
+
+        String userIpAddress = request.getRemoteAddr();
+        System.out.println(userIpAddress);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp.toString());
+
+        String que = "select * from `apiCount`";
+        List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+        maps = mysqlTemplate.queryForList(que);
+        System.out.println(maps.toString());
+
+        mysqlTemplate.execute(String.format(
+                "insert into `apiCount`( ip, apitype, time) values( '%s', '%s', '%s')",
+                userIpAddress, rawtext.getClasslabel(), timestamp
+        ));
+
+
         String text = rawtext.getText();
         String classlabel = rawtext.getClasslabel();
         if (!text.isEmpty()) {
@@ -78,6 +108,8 @@ public class NERContorller {
     public static class RawText {
         private String text;
         private String classlabel;
+        private HttpServletRequest request;
+        public HttpServletRequest getRequest() {return request;}
         public String getClasslabel() { return  classlabel;}
         public String getText() {
             return text;
