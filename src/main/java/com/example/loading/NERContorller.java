@@ -43,74 +43,105 @@ public class NERContorller {
     @RequestMapping(value = "submit", method = RequestMethod.POST)
     public Final_Results submit(@RequestBody RawText rawtext, HttpServletRequest request) throws IOException {
 
-        int id = 1;
+        String Type_ = "Entity Discovery API";
+        String subType = rawtext.getSubType();
+        if (subType == null)
+            subType = "All";
+        String text = rawtext.getText();
 
-        String userIpAddress = request.getRemoteAddr();
-        System.out.println(userIpAddress);
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        System.out.println(timestamp.toString());
+        String userIpAddress = request.getRemoteAddr(); // get the IP from user
+//        System.out.println(userIpAddress);
 
-        String que = "select * from `apiCount`";
-        List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
-        maps = mysqlTemplate.queryForList(que);
-        System.out.println(maps.toString());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //get current time
+//        System.out.println(timestamp.toString());
+
+//        String que = "select * from `apiCount`";
+//        List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+//        maps = mysqlTemplate.queryForList(que);
+//        System.out.println(maps.toString());
 
         mysqlTemplate.execute(String.format(
-                "insert into `apiCount`( ip, apitype, time) values( '%s', '%s', '%s')",
-                userIpAddress, rawtext.getClasslabel(), timestamp
-        ));
+                "insert into `apiCount`( ip, type, subtype, time) values( '%s', '%s', '%s', '%s')",
+                userIpAddress, Type_, subType, timestamp
+        )); // write the record back to SQL
 
 
-        String text = rawtext.getText();
-        String classlabel = rawtext.getClasslabel();
         if (!text.isEmpty()) {
             try {
-//                byte[] bytes = file.getBytes();
-//                String string = new String(bytes);
-//                String[] wholestring = string.split("\n", 2);
                 Abstract a = new Abstract();
                 a.setId("");
                 a.setTitleText("");
                 a.setAbstractText(text);
-//                String text = a.getText();
 
-                results_Chemical = process_Chemical(a);
-                Collections.sort(results_Chemical, new Comparator<TmChemResult>() {
-                    @Override
-                    public int compare(TmChemResult o1, TmChemResult o2) {
-                        return o1.getStartChar() - o2.getStartChar();
-                    }
-                });
+                if (subType.equals("Chemical") ) {
+                    results_Chemical = process_Chemical(a);
+                    Collections.sort(results_Chemical, new Comparator<TmChemResult>() {
+                        @Override
+                        public int compare(TmChemResult o1, TmChemResult o2) {
+                            return o1.getStartChar() - o2.getStartChar();
+                        }
+                    });
+                    results_Disease = null;
+                    results_General = null;
+                }
+                else if (subType.equals("Disease") ) {
+                    results_Disease = process_Disease(a);
+                    Collections.sort(results_Disease, new Comparator<DNormResult>() {
+                        @Override
+                        public int compare(DNormResult r1, DNormResult r2) {
+                            return r1.getStartChar() - r2.getStartChar();
+                        }
+                    });
+                    results_Chemical = null;
+                    results_General = null;
+                }
+                else if (subType.equals("General") ) {
+                    results_General = process_General(text);
+                    results_Chemical = null;
+                    results_Disease = null;
+                }
+                else if (subType.equals("All")) {
+                    results_Chemical = process_Chemical(a);
+                    Collections.sort(results_Chemical, new Comparator<TmChemResult>() {
+                        @Override
+                        public int compare(TmChemResult o1, TmChemResult o2) {
+                            return o1.getStartChar() - o2.getStartChar();
+                        }
+                    });
 
-                results_Disease = process_Disease(a);
-                Collections.sort(results_Disease, new Comparator<DNormResult>() {
-                    @Override
-                    public int compare(DNormResult r1, DNormResult r2) {
-                        return r1.getStartChar() - r2.getStartChar();
-                    }
-                });
+                    results_Disease = process_Disease(a);
+                    Collections.sort(results_Disease, new Comparator<DNormResult>() {
+                        @Override
+                        public int compare(DNormResult r1, DNormResult r2) {
+                            return r1.getStartChar() - r2.getStartChar();
+                        }
+                    });
 
-                results_General = process_General(text);
+                    results_General = process_General(text);
+                }
+                else {
+                    results_Chemical = null;
+                    results_Disease = null;
+                    results_General = null;
+                }
 
                 Final_Results end = new Final_Results(results_Chemical, results_Disease, results_General);
                 return end;
 
             } catch (Exception e) {
-                Final_Results results = null;
-                return results;
+                return null;
             }
         } else {
-            Final_Results results = null;
-            return results;
+            return null;
         }
     }
 
     public static class RawText {
         private String text;
-        private String classlabel;
-        private HttpServletRequest request;
-        public HttpServletRequest getRequest() {return request;}
-        public String getClasslabel() { return  classlabel;}
+        private String subType;
+//        private String Type;
+//        private String getType() {return Type;}
+        public String getSubType() { return  subType;}
         public String getText() {
             return text;
         }
@@ -317,6 +348,11 @@ public class NERContorller {
             this.results_Disease = results_Disease;
             this.results_General = results_General;
         }
+//        public Final_Results(List<TmChemResult> results_Chemical) {
+//            this.results_Chemical = results_Chemical;
+//            this.results_Disease = null;
+//            this.results_General = null;
+//        }
         public List<TmChemResult> getResults_Chemical() {
             return results_Chemical;
         }
