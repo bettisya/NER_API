@@ -72,6 +72,9 @@ public class NERContorller {
                 a.setId("");
                 a.setTitleText("");
                 a.setAbstractText(text);
+                results_Disease = null;
+                results_General = null;
+                results_Chemical = null;
 
                 if (subType.equals("Chemical") ) {
                     results_Chemical = process_Chemical(a);
@@ -81,8 +84,6 @@ public class NERContorller {
                             return o1.getStartChar() - o2.getStartChar();
                         }
                     });
-                    results_Disease = null;
-                    results_General = null;
                 }
                 else if (subType.equals("Disease") ) {
                     results_Disease = process_Disease(a);
@@ -92,13 +93,9 @@ public class NERContorller {
                             return r1.getStartChar() - r2.getStartChar();
                         }
                     });
-                    results_Chemical = null;
-                    results_General = null;
                 }
                 else if (subType.equals("General") ) {
                     results_General = process_General(text);
-                    results_Chemical = null;
-                    results_Disease = null;
                 }
                 else if (subType.equals("All")) {
                     results_Chemical = process_Chemical(a);
@@ -118,11 +115,6 @@ public class NERContorller {
                     });
 
                     results_General = process_General(text);
-                }
-                else {
-                    results_Chemical = null;
-                    results_Disease = null;
-                    results_General = null;
                 }
 
                 Final_Results end = new Final_Results(results_Chemical, results_Disease, results_General);
