@@ -1,0 +1,22 @@
+mvn install:install-file -Dfile=libs/commons-collections-3.2.1.jar -DgroupId=com.code -DartifactId=commons-collections -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/commons-configuration-1.6.jar -DgroupId=com.code -DartifactId=commons--configuration -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/commons-lang-2.4.jar -DgroupId=com.code -DartifactId=commons-lang -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/commons-logging-1.1.1.jar -DgroupId=com.code -DartifactId=commons-logging -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/dnorm.jar -DgroupId=com.code -DartifactId=dnorm -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/heptag.jar -DgroupId=com.code -DartifactId=heptag -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/joda-time.jar -DgroupId=com.code -DartifactId=joda-time -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/lucene-analyzers-3.6.0.jar -DgroupId=com.code -DartifactId=lucene-analyzers -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/lucene-core-3.6.0.jar -DgroupId=com.code -DartifactId=lucene-core -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/mallet.jar -DgroupId=com.code -DartifactId=mallet -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/mallet-deps.jar -DgroupId=com.code -DartifactId=mallet-deps -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/stax2-api-3.1.1.jar -DgroupId=com.code -DartifactId=stax2-api -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/stax-utils.jar -DgroupId=com.code -DartifactId=stax-utils -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/trove-3.0.3.jar -DgroupId=com.code -DartifactId=trove -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/woodstox-core-asl-4.2.0.jar -DgroupId=com.code -DartifactId=woodstox-core-asl -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/banner.jar -DgroupId=com.code -DartifactId=banner -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/dragontool.jar -DgroupId=com.code -DartifactId=dragon -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/CHEMDNER.jar -DgroupId=com.code -DartifactId=chemdner -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/woodstox-core-asl-4.2.0.jar -DgroupId=com.code -DartifactId=woodstox-core-asl -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/colt.jar -DgroupId=com.code -DartifactId=colt -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=libs/stanford-ner.jar -DgroupId=com.code -DartifactId=stanford-ner -Dversion=1.0 -Dpackaging=jar
+

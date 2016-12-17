@@ -210,7 +210,19 @@ public class NERContorller {
         System.out.println("Mentions found:");
         for (DNormResult result : found)
             System.out.println("\t" + result.toString());
-        return found;
+//        return found;
+        List<DNormResult> returned = extendResults(text, found, abbreviationMap);
+        System.out.println("Mentions added:");
+        List<DNormResult> added = new ArrayList<DNormResult>(returned);
+        added.removeAll(found);
+        for (DNormResult result : added)
+            System.out.println("\t" + result.toString());
+//        System.out.println("Mentions removed:");
+//        List<DNormResult> removed = new ArrayList<DNormResult>(found);
+//        removed.removeAll(returned);
+//        for (DNormResult result : removed)
+//            System.out.println("\t" + result.toString());
+        return returned;
     }
 
     private static List<DNormResult> processText_Disease(Abstract a, Map<String, String> abbreviationMap) {
@@ -276,7 +288,7 @@ public class NERContorller {
             Pattern mentionPattern = Pattern.compile(pattern);
             Matcher textMatcher = mentionPattern.matcher(text);
             while (textMatcher.find()) {
-                newResults.add(new DNormResult(textMatcher.start(), textMatcher.end(), result.getMentionText(), result.getConceptID(), result.getScore()));
+                newResults.add(new DNormResult(textMatcher.start()-1, textMatcher.end()-1, result.getMentionText(), result.getConceptID(), result.getScore()));
             }
         }
 

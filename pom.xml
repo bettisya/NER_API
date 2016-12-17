@@ -51,6 +51,109 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>banner</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>dragon</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>chemdner</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>colt</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>commons--configuration</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>dnorm</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>heptag</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>lucene-analyzers</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>mallet</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>mallet-deps</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>stax2-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>stax-utils</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>trove</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>woodstox-core-asl</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.code</groupId>
+			<artifactId>stanford-ner</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+
 	</dependencies>
 	
 	<build>
@@ -59,6 +162,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 
